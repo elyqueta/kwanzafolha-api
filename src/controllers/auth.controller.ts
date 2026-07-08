@@ -1,20 +1,25 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import { pool } from '../db/poo';
-import { gerarToken } from '../utils/jwt.util';
-import { LoginRequestBody } from '../types/auth.types';
+import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
+import { pool } from "../db/pool";
+import { gerarToken } from "../utils/jwt.util";
+import { LoginRequestBody } from "../types/auth.types";
 
-export async function login(req: Request<{}, {}, LoginRequestBody>, res: Response) {
+export async function login(
+  req: Request<{}, {}, LoginRequestBody>,
+  res: Response,
+) {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email e password são obrigatórios.' });
+    return res
+      .status(400)
+      .json({ error: "Email e password são obrigatórios." });
   }
 
   try {
     const result = await pool.query(
-      'SELECT id, nome, email, password_hash, role, ativo FROM utilizadores WHERE email = $1',
-      [email]
+      "SELECT id, nome, email, password_hash, role, ativo FROM utilizadores WHERE email = $1",
+      [email],
     );
 
     const utilizador = result.rows[0];
@@ -22,12 +27,15 @@ export async function login(req: Request<{}, {}, LoginRequestBody>, res: Respons
     // Mensagem genérica de propósito — nunca dizemos "email não existe" vs "password errada"
     // separadamente. Isso ajuda um atacante a descobrir emails válidos por tentativa e erro.
     if (!utilizador || !utilizador.ativo) {
-      return res.status(401).json({ error: 'Credenciais inválidas.' });
+      return res.status(401).json({ error: "Credenciais inválidas." });
     }
 
-    const passwordCorreta = await bcrypt.compare(password, utilizador.password_hash);
+    const passwordCorreta = await bcrypt.compare(
+      password,
+      utilizador.password_hash,
+    );
     if (!passwordCorreta) {
-      return res.status(401).json({ error: 'Credenciais inválidas.' });
+      return res.status(401).json({ error: "Credenciais inválidas." });
     }
 
     const token = gerarToken({
@@ -36,7 +44,10 @@ export async function login(req: Request<{}, {}, LoginRequestBody>, res: Respons
       role: utilizador.role,
     });
 
-    await pool.query('UPDATE utilizadores SET ultimo_login = NOW() WHERE id = $1', [utilizador.id]);
+    await pool.query(
+      "UPDATE utilizadores SET ultimo_login = NOW() WHERE id = $1",
+      [utilizador.id],
+    );
 
     res.json({
       token,
@@ -48,8 +59,8 @@ export async function login(req: Request<{}, {}, LoginRequestBody>, res: Respons
       },
     });
   } catch (err) {
-    console.error('Erro no login:', err);
-    res.status(500).json({ error: 'Erro interno no servidor.' });
+    console.error("Erro no login:", err);
+    res.status(500).json({ error: "Erro interno no servidor." });
   }
 }
 
@@ -63,12 +74,12 @@ export async function listarEmpresas(req: Request, res: Response) {
        JOIN utilizador_empresa ue ON ue.empresa_id = e.id
        WHERE ue.utilizador_id = $1 AND ue.ativo = TRUE AND e.ativa = TRUE
        ORDER BY e.nome`,
-      [userId]
+      [userId],
     );
 
     res.json({ empresas: result.rows });
   } catch (err) {
-    console.error('Erro ao listar empresas:', err);
-    res.status(500).json({ error: 'Erro interno no servidor.' });
+    console.error("Erro ao listar empresas:", err);
+    res.status(500).json({ error: "Erro interno no servidor." });
   }
 }
