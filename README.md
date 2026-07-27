@@ -105,7 +105,7 @@ ALTER TABLE empresa_config_fiscal ADD CONSTRAINT uq_empresa_config_fiscal_empres
 
 ## 📡 Endpoints Implementados
 
-### Autenticação — ✅ Concluído e testado
+### Autenticação — Concluído e testado
 
 | Método | Rota | Proteção | Descrição |
 |---|---|---|---|
