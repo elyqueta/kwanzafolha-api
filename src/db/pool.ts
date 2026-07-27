@@ -14,9 +14,9 @@ export const pool = new Pool({
 // Testa a ligação assim que o servidor arranca
 pool.connect()
   .then((client) => {
-    console.log('✅ Ligado ao PostgreSQL com sucesso');
+    console.log('Ligado ao PostgreSQL com sucesso');
     client.release(); // devolve a ligação ao "pool" — nunca esquecer isto
   })
   .catch((err) => {
-    console.error('❌ Erro ao ligar ao PostgreSQL:', err.message);
+    console.error('Erro ao ligar ao PostgreSQL:', err.message);
   });
