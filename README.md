@@ -52,7 +52,7 @@ src/
    PORT=3001
 
    DB_HOST=localhost
-   DB_PORT=5432
+   DB_PORT=5434
    DB_NAME=hr_system
    DB_USER=postgres
    DB_PASSWORD=a_tua_password

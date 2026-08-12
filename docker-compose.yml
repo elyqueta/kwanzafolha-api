@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "127.0.0.1:5432"   # <- host:container. Fora é 5433, dentro continua 5432
+      - "127.0.0.1:5434:5432"   # <- host:container. Fora é 5434, dentro continua 5432
     volumes:
       - kwanzafolha_pg_data:/var/lib/postgresql/data
       - ./db:/db      # monta a pasta db/ dentro do container, em /db

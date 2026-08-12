@@ -62,14 +62,14 @@ Se já tinhas um `docker-compose.yml` antigo, o do zip **substitui** o antigo
 ### 2. Confirma que a porta 5432 não está ocupada por outro projeto
 
 Como já tens outro projeto Docker a usar a porta `5432`, este `docker-compose.yml`
-já vem configurado para expor o Postgres na porta **5433** (fora do container),
+já vem configurado para expor o Postgres na porta **5434** (fora do container),
 mantendo internamente a 5432. Não precisas de fazer nada extra aqui — já está
 tratado.
 
-Se quiseres confirmar mesmo assim que a 5433 está livre:
+Se quiseres confirmar mesmo assim que a 5434 está livre:
 
 ```bash
-sudo lsof -i :5433
+sudo lsof -i :5434
 ```
 
 Não deve devolver nada.
@@ -115,7 +115,7 @@ etc., terminando em `>> Schema CORE criado com sucesso.`
 PORT=3001
 
 DB_HOST=localhost
-DB_PORT=5433
+DB_PORT=5434
 DB_NAME=hr_system
 DB_USER=kwanzafolha_app
 DB_PASSWORD=<a mesma password que puseste no 001_app_role.sql>
