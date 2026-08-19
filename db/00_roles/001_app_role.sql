@@ -16,7 +16,7 @@ BEGIN
     IF NOT EXISTS (
         SELECT FROM pg_catalog.pg_roles WHERE rolname = 'kwanzafolha_app'
     ) THEN
-        CREATE ROLE kwanzafolha_app WITH LOGIN PASSWORD 'TROCA_ESTA_PASSWORD_AQUI';
+        CREATE ROLE kwanzafolha_app WITH LOGIN PASSWORD 'classapa1914';
     END IF;
 END
 $$;

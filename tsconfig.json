@@ -17,6 +17,6 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/db/migrations/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

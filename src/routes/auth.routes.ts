@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { login, listarEmpresas } from '../controllers/auth.controller';
 import { autenticar } from '../middlewares/auth.middleware';
+import { loginRateLimiter } from '../middlewares/rateLimit.middleware';
 
 const router = Router();
 
@@ -53,8 +54,14 @@ const router = Router();
  *           application/json:
  *             example:
  *               error: Credenciais inválidas.
+ *       429:
+ *         description: Demasiadas tentativas de login
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Demasiadas tentativas de login. Tenta novamente dentro de 15 minutos.
  */
-router.post('/login', login);
+router.post('/login', loginRateLimiter, login);
 
 /**
  * @openapi

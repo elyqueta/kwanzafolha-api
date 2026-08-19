@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "migrate": "ts-node --transpile-only src/db/migrate.ts up",
+    "migrate:down": "ts-node --transpile-only src/db/migrate.ts down",
+    "migrate:status": "ts-node --transpile-only src/db/migrate.ts status"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +21,9 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.6.2",
     "jsonwebtoken": "^9.0.3",
+    "node-pg-migrate": "^9.0.0",
     "pg": "^8.22.0",
     "swagger-jsdoc": "^6.3.0"
   },
@@ -28,8 +33,10 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.1.0",
+    "@types/node-pg-migrate": "^2.3.1",
     "@types/pg": "^8.20.0",
     "@types/swagger-jsdoc": "^6.0.4",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.3"
   }
