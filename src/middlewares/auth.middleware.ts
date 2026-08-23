@@ -1,15 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { verificarToken } from "../utils/jwt.util";
-import { JwtPayload } from "../types/auth.types";
-
-// Estende o tipo Request do Express para poder guardar o utilizador autenticado
-declare global {
-  namespace Express {
-    interface Request {
-      user?: JwtPayload;
-    }
-  }
-}
 
 export function autenticar(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization; // formato: "Bearer <token>"
