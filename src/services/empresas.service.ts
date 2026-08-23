@@ -1,10 +1,6 @@
 import { NotFoundError, BadRequestError } from "../errors/AppError";
 import { empresasRepository } from "../repositories/empresas.repository";
-import {
-  EmpresaBody,
-  ConfigFiscalBody,
-  ContaBancariaBody,
-} from "../types/empresa.types";
+import { EmpresaBody, ConfigFiscalBody, ContaBancariaBody } from "../types/empresa.types";
 
 // Helper reutilizável — vamos usar isto em TODOS os métodos que recebem um empresa_id
 async function garantirEmpresaExiste(id: string) {
@@ -64,8 +60,7 @@ export const empresasService = {
 
   async criarContaBancaria(id: string, b: ContaBancariaBody) {
     await garantirEmpresaExiste(id);
-    if (!b.numero_conta)
-      throw new BadRequestError("O número de conta é obrigatório.");
+    if (!b.numero_conta) throw new BadRequestError("O número de conta é obrigatório.");
 
     return empresasRepository.inserirContaBancaria(id, b);
   },

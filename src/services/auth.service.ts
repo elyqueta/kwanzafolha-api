@@ -14,10 +14,7 @@ export const authService = {
       throw new UnauthorizedError();
     }
 
-    const passwordCorreta = await bcrypt.compare(
-      password,
-      utilizador.password_hash,
-    );
+    const passwordCorreta = await bcrypt.compare(password, utilizador.password_hash);
     if (!passwordCorreta) {
       throw new UnauthorizedError();
     }

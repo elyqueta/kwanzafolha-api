@@ -11,9 +11,26 @@ module.exports = tseslint.config(
   {
     files: ["src/**/*.ts"],
     rules: {
+      "@typescript-eslint/no-empty-object-type": [
+        "error",
+        { allowObjectTypes: "always" },
+      ],
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        { "ts-ignore": "allow-with-description" },
+      ],
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^err$" },
+      ],
       "no-console": "off",
+    },
+  },
+  {
+    files: ["src/types/node-pg-migrate.d.ts", "src/utils/asyncHandler.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   prettier,

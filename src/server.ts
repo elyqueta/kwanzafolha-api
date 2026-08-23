@@ -9,7 +9,6 @@ import { apiReference } from "@scalar/express-api-reference";
 import { swaggerSpec } from "./config/swagger";
 import { env } from "./config/env";
 
-
 const app = express();
 const PORT = env.PORT;
 
@@ -65,9 +64,7 @@ app.get("/health", async (_req, res) => {
       db_time: result.rows[0].agora,
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ status: "erro", message: "Falha na ligação à base de dados" });
+    res.status(500).json({ status: "erro", message: "Falha na ligação à base de dados" });
   }
 });
 

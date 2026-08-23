@@ -4,9 +4,7 @@ import { z } from "zod";
 dotenv.config();
 
 const envSchema = z.object({
-  NODE_ENV: z
-    .enum(["development", "production", "test"])
-    .default("development"),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 
   PORT: z.coerce
     .number({ message: "PORT deve ser um número." })
@@ -25,10 +23,7 @@ const envSchema = z.object({
     .optional(),
 
   DB_HOST: z.string().min(1, "DB_HOST é obrigatório."),
-  DB_PORT: z.coerce
-    .number({ message: "DB_PORT deve ser um número." })
-    .int()
-    .positive(),
+  DB_PORT: z.coerce.number({ message: "DB_PORT deve ser um número." }).int().positive(),
   DB_NAME: z.string().min(1, "DB_NAME é obrigatório."),
   DB_USER: z.string().min(1, "DB_USER é obrigatório."),
   DB_PASSWORD: z.string().min(1, "DB_PASSWORD é obrigatório."),

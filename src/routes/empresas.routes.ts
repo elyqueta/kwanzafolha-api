@@ -330,11 +330,7 @@ router.put(
  *                   iban: "AO06000600009999999990192"
  *                   principal: true
  */
-router.get(
-  "/:id/contas-bancarias",
-  verificarAcessoEmpresa,
-  listarContasBancarias,
-);
+router.get("/:id/contas-bancarias", verificarAcessoEmpresa, listarContasBancarias);
 
 /**
  * @openapi

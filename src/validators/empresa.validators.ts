@@ -20,20 +20,12 @@ export const criarEmpresaSchema = z.object({
 
   data_constituicao: z
     .string()
-    .regex(
-      /^\d{4}-\d{2}-\d{2}$/,
-      "data_constituicao deve estar no formato AAAA-MM-DD.",
-    )
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "data_constituicao deve estar no formato AAAA-MM-DD.")
     .optional(),
 
   telefone: z.string().trim().max(30).optional(),
 
-  email: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .email("Formato de email inválido.")
-    .optional(),
+  email: z.string().trim().toLowerCase().email("Formato de email inválido.").optional(),
 
   website: z.string().trim().url("Formato de website inválido.").optional(),
 
@@ -110,11 +102,7 @@ export const contaBancariaSchema = z.object({
     .min(1, "O número de conta é obrigatório.")
     .max(50, "O número de conta não pode exceder 50 caracteres."),
 
-  iban: z
-    .string()
-    .trim()
-    .max(34, "O IBAN não pode exceder 34 caracteres.")
-    .optional(),
+  iban: z.string().trim().max(34, "O IBAN não pode exceder 34 caracteres.").optional(),
 
   moeda_id: z.coerce
     .number()

@@ -1,4 +1,4 @@
-import rateLimit from 'express-rate-limit';
+import rateLimit from "express-rate-limit";
 
 // Protege o endpoint de login contra tentativas de força bruta.
 // Janela de 15 minutos, máximo de 10 tentativas por IP nesse intervalo.
@@ -12,7 +12,7 @@ export const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   limit: 10,
   message: {
-    error: 'Demasiadas tentativas de login. Tenta novamente dentro de 15 minutos.',
+    error: "Demasiadas tentativas de login. Tenta novamente dentro de 15 minutos.",
   },
   standardHeaders: true, // devolve headers RateLimit-* (padrão IETF)
   legacyHeaders: false, // desativa os headers X-RateLimit-* antigos (redundantes)

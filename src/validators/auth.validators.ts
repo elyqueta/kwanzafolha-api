@@ -1,15 +1,15 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const loginSchema = z.object({
   email: z
-    .string({ message: 'O email é obrigatório.' })
+    .string({ message: "O email é obrigatório." })
     .trim()
     .toLowerCase()
-    .email('Formato de email inválido.'),
+    .email("Formato de email inválido."),
 
   password: z
-    .string({ message: 'A password é obrigatória.' })
-    .min(1, 'A password é obrigatória.'),
+    .string({ message: "A password é obrigatória." })
+    .min(1, "A password é obrigatória."),
 });
 
 // Tipo TypeScript derivado automaticamente do schema — assim o controller

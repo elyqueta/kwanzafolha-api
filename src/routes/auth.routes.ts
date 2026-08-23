@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { login, listarEmpresas } from '../controllers/auth.controller';
-import { autenticar } from '../middlewares/auth.middleware';
-import { loginRateLimiter } from '../middlewares/rateLimit.middleware';
-import { validarBody } from '../middlewares/validate.middleware';
-import { loginSchema } from '../validators/auth.validators';
+import { Router } from "express";
+import { login, listarEmpresas } from "../controllers/auth.controller";
+import { autenticar } from "../middlewares/auth.middleware";
+import { loginRateLimiter } from "../middlewares/rateLimit.middleware";
+import { validarBody } from "../middlewares/validate.middleware";
+import { loginSchema } from "../validators/auth.validators";
 
 const router = Router();
 
@@ -63,7 +63,7 @@ const router = Router();
  *             example:
  *               error: Demasiadas tentativas de login. Tenta novamente dentro de 15 minutos.
  */
-router.post('/login', loginRateLimiter, validarBody(loginSchema), login);
+router.post("/login", loginRateLimiter, validarBody(loginSchema), login);
 
 /**
  * @openapi
@@ -87,6 +87,6 @@ router.post('/login', loginRateLimiter, validarBody(loginSchema), login);
  *       401:
  *         description: Não autenticado
  */
-router.get('/empresas', autenticar, listarEmpresas); // rota protegida
+router.get("/empresas", autenticar, listarEmpresas); // rota protegida
 
 export default router;

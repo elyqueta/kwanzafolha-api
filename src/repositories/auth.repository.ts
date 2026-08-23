@@ -10,9 +10,7 @@ export interface UtilizadorAuthRow {
 }
 
 export const authRepository = {
-  async buscarUtilizadorPorEmail(
-    email: string,
-  ): Promise<UtilizadorAuthRow | null> {
+  async buscarUtilizadorPorEmail(email: string): Promise<UtilizadorAuthRow | null> {
     const result = await pool.query<UtilizadorAuthRow>(
       "SELECT id, nome, email, password_hash, role, ativo FROM utilizadores WHERE email = $1",
       [email],
@@ -21,10 +19,7 @@ export const authRepository = {
   },
 
   async actualizarUltimoLogin(id: string): Promise<void> {
-    await pool.query(
-      "UPDATE utilizadores SET ultimo_login = NOW() WHERE id = $1",
-      [id],
-    );
+    await pool.query("UPDATE utilizadores SET ultimo_login = NOW() WHERE id = $1", [id]);
   },
 
   async listarEmpresasDoUtilizador(utilizadorId: string) {

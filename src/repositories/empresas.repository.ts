@@ -1,15 +1,9 @@
 import { pool } from "../db/pool";
-import {
-  EmpresaBody,
-  ConfigFiscalBody,
-  ContaBancariaBody,
-} from "../types/empresa.types";
+import { EmpresaBody, ConfigFiscalBody, ContaBancariaBody } from "../types/empresa.types";
 
 export const empresasRepository = {
   async buscarPorId(id: string) {
-    const result = await pool.query("SELECT * FROM empresas WHERE id = $1", [
-      id,
-    ]);
+    const result = await pool.query("SELECT * FROM empresas WHERE id = $1", [id]);
     return result.rows[0];
   },
 

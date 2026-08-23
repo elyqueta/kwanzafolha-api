@@ -1,18 +1,12 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { empresasService } from "../services/empresas.service";
-import {
-  EmpresaBody,
-  ConfigFiscalBody,
-  ContaBancariaBody,
-} from "../types/empresa.types";
+import { EmpresaBody, ConfigFiscalBody, ContaBancariaBody } from "../types/empresa.types";
 
-export const listarEmpresas = asyncHandler(
-  async (_req: Request, res: Response) => {
-    const empresas = await empresasService.listarTodas();
-    res.json({ empresas });
-  },
-);
+export const listarEmpresas = asyncHandler(async (_req: Request, res: Response) => {
+  const empresas = await empresasService.listarTodas();
+  res.json({ empresas });
+});
 
 export const obterEmpresa = asyncHandler(
   async (req: Request<{ id: string }>, res: Response) => {
@@ -44,10 +38,7 @@ export const obterConfigFiscal = asyncHandler(
 
 export const atualizarConfigFiscal = asyncHandler(
   async (req: Request<{ id: string }, {}, ConfigFiscalBody>, res: Response) => {
-    const config = await empresasService.atualizarConfigFiscal(
-      req.params.id,
-      req.body,
-    );
+    const config = await empresasService.atualizarConfigFiscal(req.params.id, req.body);
     res.json(config);
   },
 );
@@ -60,14 +51,8 @@ export const listarContasBancarias = asyncHandler(
 );
 
 export const criarContaBancaria = asyncHandler(
-  async (
-    req: Request<{ id: string }, {}, ContaBancariaBody>,
-    res: Response,
-  ) => {
-    const conta = await empresasService.criarContaBancaria(
-      req.params.id,
-      req.body,
-    );
+  async (req: Request<{ id: string }, {}, ContaBancariaBody>, res: Response) => {
+    const conta = await empresasService.criarContaBancaria(req.params.id, req.body);
     res.status(201).json(conta);
   },
 );

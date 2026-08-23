@@ -2,7 +2,7 @@ export interface EmpresaBody {
   nome: string;
   nome_comercial?: string;
   nif?: string;
-  tipo_empresa?: 'LDA' | 'SA' | 'ENI' | 'ONG' | 'EP' | 'OUTRO';
+  tipo_empresa?: "LDA" | "SA" | "ENI" | "ONG" | "EP" | "OUTRO";
   data_constituicao?: string;
   telefone?: string;
   email?: string;
@@ -31,4 +31,3 @@ export interface ContaBancariaBody {
   moeda_id?: number;
   principal?: boolean;
 }
-
