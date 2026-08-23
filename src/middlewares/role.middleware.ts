@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 
 // Fábrica de middlewares: recebe os papéis permitidos e devolve o middleware
 export function permitirRoles(...rolesPermitidos: string[]) {
@@ -6,9 +6,9 @@ export function permitirRoles(...rolesPermitidos: string[]) {
     const role = req.user?.role;
 
     if (!role || !rolesPermitidos.includes(role)) {
-      return res.status(403).json({ error: 'Sem permissão para esta ação.' });
+      return res.status(403).json({ error: "Sem permissão para esta ação." });
     }
 
-    next();
+    return next();
   };
 }

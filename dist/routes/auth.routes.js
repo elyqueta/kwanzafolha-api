@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import { login, listarEmpresas } from '../controllers/auth.controller';
-import { autenticar } from '../middlewares/auth.middleware';
-import { loginRateLimiter } from '../middlewares/rateLimit.middleware';
-import { validarBody } from '../middlewares/validate.middleware';
-import { loginSchema } from '../validators/auth.validators';
-
-const router = Router();
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_controller_1 = require("../controllers/auth.controller");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const rateLimit_middleware_1 = require("../middlewares/rateLimit.middleware");
+const validate_middleware_1 = require("../middlewares/validate.middleware");
+const auth_validators_1 = require("../validators/auth.validators");
+const router = (0, express_1.Router)();
 /**
  * @openapi
  * /api/auth/login:
@@ -63,8 +63,7 @@ const router = Router();
  *             example:
  *               error: Demasiadas tentativas de login. Tenta novamente dentro de 15 minutos.
  */
-router.post('/login', loginRateLimiter, validarBody(loginSchema), login);
-
+router.post('/login', rateLimit_middleware_1.loginRateLimiter, (0, validate_middleware_1.validarBody)(auth_validators_1.loginSchema), auth_controller_1.login);
 /**
  * @openapi
  * /api/auth/empresas:
@@ -87,6 +86,6 @@ router.post('/login', loginRateLimiter, validarBody(loginSchema), login);
  *       401:
  *         description: Não autenticado
  */
-router.get('/empresas', autenticar, listarEmpresas); // rota protegida
-
-export default router;
+router.get('/empresas', auth_middleware_1.autenticar, auth_controller_1.listarEmpresas); // rota protegida
+exports.default = router;
+//# sourceMappingURL=auth.routes.js.map

@@ -49,7 +49,7 @@ export async function login(
       [utilizador.id],
     );
 
-    res.json({
+    return res.json({
       token,
       user: {
         id: utilizador.id,
@@ -60,7 +60,7 @@ export async function login(
     });
   } catch (err) {
     console.error("Erro no login:", err);
-    res.status(500).json({ error: "Erro interno no servidor." });
+    return res.status(500).json({ error: "Erro interno no servidor." });
   }
 }
 

@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { verificarToken } from '../utils/jwt.util';
-import { JwtPayload } from '../types/auth.types';
+import { Request, Response, NextFunction } from "express";
+import { verificarToken } from "../utils/jwt.util";
+import { JwtPayload } from "../types/auth.types";
 
 // Estende o tipo Request do Express para poder guardar o utilizador autenticado
 declare global {
@@ -14,17 +14,17 @@ declare global {
 export function autenticar(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization; // formato: "Bearer <token>"
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Token não fornecido.' });
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Token não fornecido." });
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(" ")[1];
 
   try {
     const payload = verificarToken(token);
     req.user = payload; // agora qualquer rota a seguir sabe quem está autenticado
-    next(); // deixa o pedido continuar para o controller
+    return next(); // deixa o pedido continuar para o controller
   } catch (err) {
-    return res.status(401).json({ error: 'Token inválido ou expirado.' });
+    return res.status(401).json({ error: "Token inválido ou expirado." });
   }
 }

@@ -1,29 +1,14 @@
-import { Router } from "express";
-import { autenticar } from "../middlewares/auth.middleware";
-import { permitirRoles } from "../middlewares/role.middleware";
-import { verificarAcessoEmpresa } from "../middlewares/empresa-acesso.middleware";
-import { validarBody } from "../middlewares/validate.middleware";
-import {
-  criarEmpresaSchema,
-  editarEmpresaSchema,
-  configFiscalSchema,
-  contaBancariaSchema,
-} from "../validators/empresa.validators";
-import {
-  listarEmpresas,
-  obterEmpresa,
-  criarEmpresa,
-  editarEmpresa,
-  obterConfigFiscal,
-  atualizarConfigFiscal,
-  listarContasBancarias,
-  criarContaBancaria,
-} from "../controllers/empresas.controller";
-
-const router = Router();
-
-router.use(autenticar); // todas as rotas abaixo exigem login
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const role_middleware_1 = require("../middlewares/role.middleware");
+const empresa_acesso_middleware_1 = require("../middlewares/empresa-acesso.middleware");
+const validate_middleware_1 = require("../middlewares/validate.middleware");
+const empresa_validators_1 = require("../validators/empresa.validators");
+const empresas_controller_1 = require("../controllers/empresas.controller");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.autenticar); // todas as rotas abaixo exigem login
 /**
  * @openapi
  * /api/empresas:
@@ -53,8 +38,7 @@ router.use(autenticar); // todas as rotas abaixo exigem login
  *       403:
  *         description: Sem permissão (requer SUPER_ADMIN)
  */
-router.get("/", permitirRoles("SUPER_ADMIN"), listarEmpresas);
-
+router.get("/", (0, role_middleware_1.permitirRoles)("SUPER_ADMIN"), empresas_controller_1.listarEmpresas);
 /**
  * @openapi
  * /api/empresas:
@@ -122,13 +106,7 @@ router.get("/", permitirRoles("SUPER_ADMIN"), listarEmpresas);
  *       403:
  *         description: Sem permissão (requer SUPER_ADMIN)
  */
-router.post(
-  "/",
-  permitirRoles("SUPER_ADMIN"),
-  validarBody(criarEmpresaSchema),
-  criarEmpresa,
-);
-
+router.post("/", (0, role_middleware_1.permitirRoles)("SUPER_ADMIN"), (0, validate_middleware_1.validarBody)(empresa_validators_1.criarEmpresaSchema), empresas_controller_1.criarEmpresa);
 /**
  * @openapi
  * /api/empresas/{id}:
@@ -159,8 +137,7 @@ router.post(
  *       404:
  *         description: Empresa não encontrada
  */
-router.get("/:id", verificarAcessoEmpresa, obterEmpresa);
-
+router.get("/:id", empresa_acesso_middleware_1.verificarAcessoEmpresa, empresas_controller_1.obterEmpresa);
 /**
  * @openapi
  * /api/empresas/{id}:
@@ -207,14 +184,7 @@ router.get("/:id", verificarAcessoEmpresa, obterEmpresa);
  *       404:
  *         description: Empresa não encontrada
  */
-router.put(
-  "/:id",
-  verificarAcessoEmpresa,
-  permitirRoles("SUPER_ADMIN", "ADMIN"),
-  validarBody(editarEmpresaSchema),
-  editarEmpresa,
-);
-
+router.put("/:id", empresa_acesso_middleware_1.verificarAcessoEmpresa, (0, role_middleware_1.permitirRoles)("SUPER_ADMIN", "ADMIN"), (0, validate_middleware_1.validarBody)(empresa_validators_1.editarEmpresaSchema), empresas_controller_1.editarEmpresa);
 /**
  * @openapi
  * /api/empresas/{id}/fiscal:
@@ -245,8 +215,7 @@ router.put(
  *       404:
  *         description: Configuração fiscal não encontrada
  */
-router.get("/:id/fiscal", verificarAcessoEmpresa, obterConfigFiscal);
-
+router.get("/:id/fiscal", empresa_acesso_middleware_1.verificarAcessoEmpresa, empresas_controller_1.obterConfigFiscal);
 /**
  * @openapi
  * /api/empresas/{id}/fiscal:
@@ -294,14 +263,7 @@ router.get("/:id/fiscal", verificarAcessoEmpresa, obterConfigFiscal);
  *       403:
  *         description: Sem permissão (requer SUPER_ADMIN ou ADMIN)
  */
-router.put(
-  "/:id/fiscal",
-  verificarAcessoEmpresa,
-  permitirRoles("SUPER_ADMIN", "ADMIN"),
-  validarBody(configFiscalSchema),
-  atualizarConfigFiscal,
-);
-
+router.put("/:id/fiscal", empresa_acesso_middleware_1.verificarAcessoEmpresa, (0, role_middleware_1.permitirRoles)("SUPER_ADMIN", "ADMIN"), (0, validate_middleware_1.validarBody)(empresa_validators_1.configFiscalSchema), empresas_controller_1.atualizarConfigFiscal);
 /**
  * @openapi
  * /api/empresas/{id}/contas-bancarias:
@@ -330,12 +292,7 @@ router.put(
  *                   iban: "AO06000600009999999990192"
  *                   principal: true
  */
-router.get(
-  "/:id/contas-bancarias",
-  verificarAcessoEmpresa,
-  listarContasBancarias,
-);
-
+router.get("/:id/contas-bancarias", empresa_acesso_middleware_1.verificarAcessoEmpresa, empresas_controller_1.listarContasBancarias);
 /**
  * @openapi
  * /api/empresas/{id}/contas-bancarias:
@@ -386,12 +343,6 @@ router.get(
  *       403:
  *         description: Sem permissão (requer SUPER_ADMIN ou ADMIN)
  */
-router.post(
-  "/:id/contas-bancarias",
-  verificarAcessoEmpresa,
-  permitirRoles("SUPER_ADMIN", "ADMIN"),
-  validarBody(contaBancariaSchema),
-  criarContaBancaria,
-);
-
-export default router;
+router.post("/:id/contas-bancarias", empresa_acesso_middleware_1.verificarAcessoEmpresa, (0, role_middleware_1.permitirRoles)("SUPER_ADMIN", "ADMIN"), (0, validate_middleware_1.validarBody)(empresa_validators_1.contaBancariaSchema), empresas_controller_1.criarContaBancaria);
+exports.default = router;
+//# sourceMappingURL=empresas.routes.js.map
